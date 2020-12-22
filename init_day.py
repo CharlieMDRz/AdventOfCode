@@ -10,6 +10,8 @@ if __name__ == '__main__':
     mkdir(folder_path)
     f = open("{}input.txt".format(folder_path), "w")
     f.close()
+    f = open("{}test.txt".format(folder_path), "w")
+    f.close()
 
     f = open("{}script.py".format(folder_path), "w")
     f.write("def question1():\n\treturn 0\n\n\ndef question2():\n\treturn 0\n\n")
