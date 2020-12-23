@@ -3,7 +3,7 @@ from itertools import product
 from math import sqrt
 from typing import Dict, List
 
-from numpy import array, full, prod, rot90, flip
+from numpy import array, full, prod, rot90, flip, ndarray
 
 
 class Direction(Enum):
@@ -23,9 +23,9 @@ class Direction(Enum):
 
 class JigsawPiece:
 
-	def __init__(self, pid, pattern):
+	def __init__(self, pid, image):
 		self.id = pid
-		self.pat = pattern
+		self.pat = image
 		self.enc = {}
 		self.neighbour = {}
 		self.build_border_encoding()
@@ -43,8 +43,8 @@ class JigsawPiece:
 		# pat = self.pat
 		# for border, label in zip([pat[0, :], pat[:, 0], pat[-1, :], pat[:, -1]], ["T", "L", "B", "R"]):
 		# 	self.enc[label] = encode(border)
-		for dir in Direction:
-			self.enc[dir] = encode(self[dir])
+		for _dir in Direction:
+			self.enc[_dir] = encode(self[_dir])
 
 	def rotate(self):
 		self.pat = rot90(self.pat)
@@ -52,7 +52,7 @@ class JigsawPiece:
 								  [_ for _ in self.enc.values()]):
 			self.enc[new_key] = value
 
-	def __getitem__(self, item):
+	def __getitem__(self, item) -> ndarray:
 		if item == Direction.Top:
 			return self.pat[0, :]
 		if item == Direction.Left:
@@ -78,15 +78,17 @@ def read_pieces(path):
 		lines = chunk.split("\n")
 		header = lines.pop(0)
 		pid = int(header[5:-1])
-		pattern = array([list(map(lambda c: int(c == '#'), [c for c in line])) for line in lines])
+		image = array([list(map(lambda c: int(c == '#'), [c for c in line])) for line in lines])
 		# print(chunk, "\n", pid, "\n", pattern)
-		_pieces[pid] = JigsawPiece(pid, pattern)
+		_pieces[pid] = JigsawPiece(pid, image)
 	return _pieces
 
 
 # It is assumed that the jigsaw is composed of size x size pieces, and that each intersection of two pieces of the
 # jigsaw is unique. Consequently, corner pieces can be identified as the 4 pieces which have 2 unique sides
 if __name__ == "__main__":
+	from time import time
+	t0 = time()
 	pieces = read_pieces("input.txt")  # type: Dict[int, JigsawPiece]
 
 	size, piece_size = int(sqrt(len(pieces))), 8  # type: int, int
@@ -98,7 +100,8 @@ if __name__ == "__main__":
 
 	# Gets corner ids as pieces whose the sum of occurrences of their sides in the pieces is 6
 	corners = list(filter(lambda pid: sum(sorted(len(encoding_mem[e1]) for e1 in pieces[pid].enc.values())) == 6, pieces))
-	print("Answer 1", corners, prod(corners))
+	t1 = time()
+	print("Answer 1", corners, prod(corners), t1 - t0)
 
 	jigsaw, habitat = full((size, size), 0), full((size*piece_size, size*piece_size), 0)  # type: array, array
 
@@ -126,9 +129,9 @@ if __name__ == "__main__":
 		jigsaw[i, j] = piece.id
 		habitat[(piece_size*i):(piece_size*(i+1)), (piece_size*j):(piece_size*(j+1))] = piece.pat[1:-1, 1:-1]
 		# remove the newly placed piece from the encoding memory
-		for _ in piece.enc.values(): encoding_mem[_].remove(piece.id)
+		for _ in piece.enc.values():
+			encoding_mem[_].remove(piece.id)
 
-	print(habitat[:30, :30])
 	size = habitat.shape[0]
 
 	pattern = array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
@@ -147,5 +150,5 @@ if __name__ == "__main__":
 				for x, y in product(range(size-sx), range(size-sy)):
 					if (habitat[x:(x+sx), y:(y+sy)] * pattern).sum() == target:
 						habitat[x:(x + sx), y:(y + sy)] -= pattern
-				print("Answer 2", (habitat > 0).sum())
+				print("Answer 2", (habitat > 0).sum(), time() - t1)
 				exit()
