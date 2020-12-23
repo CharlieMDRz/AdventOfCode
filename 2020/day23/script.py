@@ -11,7 +11,6 @@ class Queue:
 
 	def __init__(self, values: list):
 		self.head = None  # type: Item
-		self.tail = None  # type: Item
 		self.__items = [None for _ in range(max(values)+1)]  # type: list
 
 		prev = None  # type: Item
@@ -42,6 +41,7 @@ def question1(input_items, n_moves, q2=False):
 	cups_items = list(map(int, [_ for _ in str(input_items)]))
 	if q2:
 		cups_items += range(max(cups_items)+1, 1000001)
+	m, M = min(cups_items), max(cups_items)
 
 	cups = Queue(cups_items)
 
@@ -50,13 +50,13 @@ def question1(input_items, n_moves, q2=False):
 	cur_cup = cups[cups_items[0]]  # type: Item
 	for _ in range(n_moves):
 		buf_list = [cur_cup.next, cur_cup.next.next, cur_cup.next.next.next]  # 3 values following the current cup
-		buf_val = map(lambda v: v.value, buf_list)
+		buf_val = [_.value for _ in buf_list]
 
 		target_lbl = cur_cup.value - 1
-		while target_lbl in buf_val or target_lbl < 1:
+		while target_lbl in buf_val or target_lbl < m:
 			target_lbl -= 1
-			if target_lbl < 1:
-				target_lbl = len(cups_items)
+			if target_lbl < m:
+				target_lbl = M
 
 		split_cup = cups[target_lbl]
 		cur_cup.next = buf_list[-1].next
@@ -71,7 +71,7 @@ def question1(input_items, n_moves, q2=False):
 		return v1, v2, v1 * v2
 	else:
 		cups.head = cups[1]
-		print(time()-t0)
+		print(time()-t0, "seconds")
 		return cups
 
 
