@@ -14,7 +14,7 @@ if __name__ == '__main__':
     f = open("{}test.txt".format(folder_path), "w")
     f.close()
 
-    class_name = f"Advent{year}_{day}"
+    class_name = f"Advent{year}day{day}"
     f = open(f"{folder_path}{class_name}.py", "w")
     f.write(f"from AbstractDailyProblem import AbstractDailyProblem\n\n\nclass {class_name}(AbstractDailyProblem):")
     f.write("\n\n\tdef __init__(self):\n\t\tsuper().__init__(0, 0)\n")

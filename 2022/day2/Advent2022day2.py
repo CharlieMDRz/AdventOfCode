@@ -1,7 +1,7 @@
 from AbstractDailyProblem import AbstractDailyProblem
 
 
-class Advent2022_2(AbstractDailyProblem):
+class Advent2022day2(AbstractDailyProblem):
 
 	def parse(self, input_path):
 		lines = open(input_path).read().strip().split("\n")
@@ -34,4 +34,4 @@ class Advent2022_2(AbstractDailyProblem):
 
 
 if __name__ == '__main__':
-	Advent2022_2().run()
+	Advent2022day2().run()

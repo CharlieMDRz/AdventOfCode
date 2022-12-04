@@ -3,7 +3,7 @@ from typing import List
 from AbstractDailyProblem import AbstractDailyProblem
 
 
-class Advent2022_1(AbstractDailyProblem):
+class Advent2022day1(AbstractDailyProblem):
 
     def __init__(self):
         super().__init__(24000, 45000)
@@ -24,4 +24,4 @@ class Advent2022_1(AbstractDailyProblem):
 
 
 if __name__ == '__main__':
-    Advent2022_1().run()
+    Advent2022day1().run()

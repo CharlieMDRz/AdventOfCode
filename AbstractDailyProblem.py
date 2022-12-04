@@ -22,7 +22,7 @@ class AbstractDailyProblem(abc.ABC):
         try:
             assert self.question_1("test.txt") == self.__q1_test
         except AssertionError:
-            f"Question 1 fails: expected {self.__q1_test}, found {self.question_1('test.txt')}"
+            print(f"Question 1 fails: expected {self.__q1_test}, found {self.question_1('test.txt')}")
             return False
 
         print(f"Answer #1: {self.question_1('input.txt')}")
@@ -30,7 +30,8 @@ class AbstractDailyProblem(abc.ABC):
         try:
             assert self.question_2("test.txt") == self.__q2_test
         except AssertionError:
-            f"Question 2 fails: expected {self.__q2_test}, found {self.question_2('test.txt')}"
+            print(f"Question 2 fails: expected {self.__q2_test}, found {self.question_2('test.txt')}")
             return False
 
         print(f"Answer #2: {self.question_2('input.txt')}")
+        return True
