@@ -6,9 +6,11 @@ class AbstractDailyProblem(abc.ABC):
         self.__q1_test = q1_test_answer
         self.__q2_test = q2_test_answer
 
-    @abc.abstractmethod
-    def parse(self, input_path):
-        pass
+    def parse(self, input_path, entry_separator='\n'):
+        return list(map(self.parse_entry, open(input_path).read().strip().split(entry_separator)))
+
+    def parse_entry(self, entry):
+        return entry
 
     @abc.abstractmethod
     def question_1(self, input_path) -> int:
