@@ -27,4 +27,4 @@ class Advent2022day4(AbstractDailyProblem):
 
 
 if __name__ == '__main__':
-	Advent2022day4().run()
+	Advent2022day4().run("../resources/2022/4/test.txt", "../resources/2022/4/input.txt")

@@ -20,20 +20,20 @@ class AbstractDailyProblem(abc.ABC):
     def question_2(self, input_path) -> int:
         pass
 
-    def run(self) -> bool:
+    def run(self, test_path="test.txt", input_path="input.txt") -> bool:
         try:
-            assert self.question_1("test.txt") == self.__q1_test
+            assert self.question_1(test_path) == self.__q1_test
         except AssertionError:
-            print(f"Question 1 fails: expected {self.__q1_test}, found {self.question_1('test.txt')}")
+            print(f"Question 1 fails: expected {self.__q1_test}, found {self.question_1(test_path)}")
             return False
 
-        print(f"Answer #1: {self.question_1('input.txt')}")
+        print(f"Answer #1: {self.question_1(input_path)}")
 
         try:
-            assert self.question_2("test.txt") == self.__q2_test
+            assert self.question_2(test_path) == self.__q2_test
         except AssertionError:
-            print(f"Question 2 fails: expected {self.__q2_test}, found {self.question_2('test.txt')}")
+            print(f"Question 2 fails: expected {self.__q2_test}, found {self.question_2(test_path)}")
             return False
 
-        print(f"Answer #2: {self.question_2('input.txt')}")
+        print(f"Answer #2: {self.question_2(input_path)}")
         return True
