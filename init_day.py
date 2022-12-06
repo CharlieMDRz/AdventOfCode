@@ -2,6 +2,7 @@
 from pathlib import Path
 
 if __name__ == '__main__':
+    # todo: use argparse instead of whatever this is
     import sys
     from os import sep
     print(sys.argv)
@@ -19,5 +20,5 @@ if __name__ == '__main__':
     class_name = f"Advent{year}day{day}"
     f.write(f"from AbstractDailyProblem import AbstractDailyProblem\n\n\nclass {class_name}(AbstractDailyProblem):")
     f.write("\n\n\tdef __init__(self):\n\t\tsuper().__init__(0, 0)\n")
-    f.write(f"\n\nif __name__ == '__main__':\n\t{class_name}().run()\n")
+    f.write(f"\n\nif __name__ == '__main__':\n\t{class_name}().run('../resources/{year}/{day}/test.txt', '../resources/{year}/{day}/input.txt')\n")
     f.close()
