@@ -22,17 +22,17 @@ class AbstractDailyProblem(abc.ABC):
 
     def run(self, test_path="test.txt", input_path="input.txt") -> bool:
         try:
-            assert self.question_1(test_path) == self.__q1_test
+            assert (test_result_1 := self.question_1(test_path)) == self.__q1_test
         except AssertionError:
-            print(f"Question 1 fails: expected {self.__q1_test}, found {self.question_1(test_path)}")
+            print(f"Question 1 fails: expected {self.__q1_test}, found {test_result_1}")
             return False
 
         print(f"Answer #1: {self.question_1(input_path)}")
 
         try:
-            assert self.question_2(test_path) == self.__q2_test
+            assert (test_result_2 := self.question_2(test_path)) == self.__q2_test
         except AssertionError:
-            print(f"Question 2 fails: expected {self.__q2_test}, found {self.question_2(test_path)}")
+            print(f"Question 2 fails: expected {self.__q2_test}, found {test_result_2}")
             return False
 
         print(f"Answer #2: {self.question_2(input_path)}")
