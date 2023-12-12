@@ -11,7 +11,7 @@ def hold_solutions(race_duration: int, record: int) -> int:
         """Compute distance ran when holding the button for charge_time seconds"""
         return max(0, charge_time * (race_duration - charge_time))
 
-    return len([t for t in tqdm.tqdm(range(race_duration)) if distance(t) > record])
+    return len([t for t in range(race_duration) if distance(t) > record])
 
 
 class Advent2023day6(AbstractDailyProblem):

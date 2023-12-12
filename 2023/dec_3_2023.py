@@ -47,7 +47,7 @@ def gear_ratio(data, numbers, x, y):
 		if len(neighbour_nums) == 2:
 			return neighbour_nums[0].value * neighbour_nums[1].value
 		else:
-			return
+			return 0
 
 
 class Advent2023day3(AbstractDailyProblem):
