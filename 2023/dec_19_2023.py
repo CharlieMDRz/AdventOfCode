@@ -88,6 +88,7 @@ def compute_valid_values(
 
 	return res
 
+
 class Advent2023day19(AbstractDailyProblem):
 
 	def __init__(self):

@@ -2,6 +2,17 @@ import abc
 import time
 
 
+def time_format(nanos: float) -> str:
+    if nanos == 0:
+        return 'superfast'
+    duration, unit_index = nanos, 3
+    units = ['s', 'ms', 'µs', 'ns']
+    while duration >= 1000:
+        duration /= 1000
+        unit_index -= 1
+    return f"{int(duration)}{units[unit_index]}"
+
+
 class AbstractDailyProblem(abc.ABC):
     def __init__(self, q1_test_answer, q2_test_answer):
         self.__q1_test = q1_test_answer
