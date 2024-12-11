@@ -2,6 +2,7 @@
 name = "AOC-charlie"
 version = "2025.12.6"
 dependencies = [
+    "attrs",
     "tqdm",
 ]
 
