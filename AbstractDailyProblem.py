@@ -19,7 +19,7 @@ class AbstractDailyProblem(abc.ABC):
         self.__q2_test = q2_test_answer
 
     def parse(self, input_path: str, entry_separator='\n'):
-        return list(map(self.parse_entry, open(input_path).read().strip().split(entry_separator)))
+        return tuple(map(self.parse_entry, open(input_path).read().strip().split(entry_separator)))
 
     def parse_entry(self, entry: str):
         return entry
