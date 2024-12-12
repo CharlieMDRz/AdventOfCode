@@ -1,5 +1,5 @@
 from AbstractDailyProblem import AbstractDailyProblem
-from utils import in_grid, IntCoord
+from utils import in_grid, Coord2D
 
 
 def sort_antennas(data):
@@ -7,11 +7,11 @@ def sort_antennas(data):
 	for i, row in enumerate(data):
 		for j, frequency in enumerate(row):
 			if frequency != '.':
-				antennas.setdefault(frequency, []).append(IntCoord(i, j))
+				antennas.setdefault(frequency, []).append(Coord2D(i, j))
 	return antennas
 
 
-def get_antinodes_from_group(data, antenna_group, repeat_offset=False) -> set[IntCoord]:
+def get_antinodes_from_group(data, antenna_group, repeat_offset=False) -> set[Coord2D]:
 	antinodes = set()
 	for first_antenna in antenna_group:
 		for second_antenna in antenna_group:

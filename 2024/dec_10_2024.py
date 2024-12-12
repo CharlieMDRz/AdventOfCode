@@ -1,11 +1,11 @@
 import functools
 
 from AbstractDailyProblem import AbstractDailyProblem
-from utils import IntCoord, neighbours
+from utils import Coord2D, neighbours
 
 
 @functools.cache
-def trailheads_from(pos: IntCoord, grid, q2: bool = False) -> set[IntCoord]:
+def trailheads_from(pos: Coord2D, grid, q2: bool = False) -> set[Coord2D]:
 	value_at_pos = grid[pos.i][pos.j]
 	if value_at_pos == 9:
 		return 1 if q2 else {pos}
@@ -27,12 +27,12 @@ class Advent2024day10(AbstractDailyProblem):
 
 	def question_1(self, input_path) -> int:
 		data = self.parse(input_path)
-		trail_starts = [IntCoord(i, j) for i in range(len(data)) for j in range(len(data[0])) if data[i][j] == 0]
+		trail_starts = [Coord2D(i, j) for i in range(len(data)) for j in range(len(data[0])) if data[i][j] == 0]
 		return sum(len(trailheads_from(p, data)) for p in trail_starts)
 
 	def question_2(self, input_path) -> int:
 		data = self.parse(input_path)
-		trail_starts = [IntCoord(i, j) for i in range(len(data)) for j in range(len(data[0])) if data[i][j] == 0]
+		trail_starts = [Coord2D(i, j) for i in range(len(data)) for j in range(len(data[0])) if data[i][j] == 0]
 		return sum(trailheads_from(p, data, True) for p in trail_starts)
 
 
