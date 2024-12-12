@@ -1,4 +1,4 @@
-from typing import Self
+from typing import Self, Any
 
 import attrs as attrs
 
@@ -15,27 +15,33 @@ def display_grid(grid) -> None:
 
 
 @attrs.define(frozen=True)
-class IntCoord:
-    i: int
-    j: int
+class Coord2D:
+    i: float
+    j: float
 
-    def __add__(self, other) -> Self:
-        if isinstance(other, IntCoord):
-            return IntCoord(self.i + other.i, self.j + other.j)
-        return NotImplemented("IntCoord can only be added to instances of the same class")
+    def __add__(self, other: Any) -> Self:
+        if isinstance(other, Coord2D):
+            return Coord2D(self.i + other.i, self.j + other.j)
+        return NotImplemented
 
-    def __sub__(self, other) -> Self:
-        if isinstance(other, IntCoord):
-            return IntCoord(self.i - other.i, self.j - other.j)
-        return NotImplemented("IntCoord can only be subtracted to instances of the same class")
+    def __sub__(self, other: Any) -> Self:
+        if isinstance(other, Coord2D):
+            return Coord2D(self.i - other.i, self.j - other.j)
+        return NotImplemented
 
     def __iter__(self):
         return iter((self.i, self.j))
 
 
-def neighbours(pos: IntCoord, grid, include_diag = False) -> set[IntCoord]:
-    directions = [IntCoord(1, 0), IntCoord(0, 1), IntCoord(-1, 0), IntCoord(0, -1)]
+def neighbours(pos: Coord2D, grid: list = None, include_diag: bool = False) -> set[Coord2D]:
+    directions = [Coord2D(1, 0), Coord2D(0, 1), Coord2D(-1, 0), Coord2D(0, -1)]
     possible_neighbours = [pos + direction for direction in directions]
     if include_diag:
         raise NotImplementedError()
-    return {n for n in possible_neighbours if in_grid(grid, n)}
+    if grid:
+        possible_neighbours = {n for n in possible_neighbours if in_grid(grid, n)}
+    return possible_neighbours
+
+
+if __name__ == '__main__':
+    print(Coord2D(1, 0) + 2)
