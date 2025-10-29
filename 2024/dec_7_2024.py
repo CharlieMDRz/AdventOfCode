@@ -6,7 +6,8 @@ from AbstractDailyProblem import AbstractDailyProblem
 
 
 def digits(a: int) -> int:
-	return math.ceil(math.log10(a))
+	return len(str(a))
+	# return int(math.log10(a)) + 1
 
 
 def un_concat(a: int, b: int) -> int:
