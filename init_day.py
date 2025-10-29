@@ -6,8 +6,8 @@ if __name__ == '__main__':
     import sys
     from os import sep
     print(sys.argv)
-    year = '2020' if len(sys.argv) < 3 else sys.argv[2]
     day = sys.argv[1]
+    year = sys.argv[2]
 
     resource_path = f"resources/{year}/{day}"
     Path(resource_path).mkdir(parents=True, exist_ok=True)

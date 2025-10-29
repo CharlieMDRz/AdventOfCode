@@ -25,11 +25,11 @@ class AbstractDailyProblem(abc.ABC):
         return entry
 
     @abc.abstractmethod
-    def question_1(self, input_path) -> int:
+    def question_1(self, input_path: str) -> int:
         pass
 
     @abc.abstractmethod
-    def question_2(self, input_path) -> int:
+    def question_2(self, input_path: str) -> int:
         pass
 
     def run(self, test_path="test.txt", input_path="input.txt") -> bool:
