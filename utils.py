@@ -22,6 +22,10 @@ class Coord2D:
     def rotate(self) -> Self:
         return Coord2D(-self.j, self.i)
 
+    @property
+    def manhattan(self) -> float:
+        return abs(self.i) + abs(self.j)
+
     def __add__(self, other: Any) -> Self:
         if isinstance(other, Coord2D):
             return Coord2D(self.i + other.i, self.j + other.j)
@@ -38,6 +42,17 @@ class Coord2D:
     def __iter__(self):
         return iter((self.i, self.j))
 
+    @classmethod
+    def from_dir(cls, direction: str) -> Self:
+        return {
+            'U': cls(-1, 0),
+            'D': cls(1, 0),
+            'L': cls(0, -1),
+            'R': cls(0, 1),
+        }[direction]
+
+
+Segment = tuple[Coord2D, Coord2D]
 
 def get_directions(include_diag: bool = False) -> Iterable[Coord2D]:
     if include_diag:
